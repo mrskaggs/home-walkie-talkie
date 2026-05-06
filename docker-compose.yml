@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  home-walkie-talkie:
+    build: .
+    image: home-walkie-talkie:latest
+    container_name: home-walkie-talkie
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
