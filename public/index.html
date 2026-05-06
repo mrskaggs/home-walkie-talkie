@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Home Voice Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>🎙️ Home Walkie-Talkie</h1>
+        </header>
+
+        <!-- Lobby View -->
+        <main id="lobby" class="view active">
+            <div class="card">
+                <h2>Join a Room</h2>
+                <div id="room-list" class="room-list">
+                    <!-- Dynamic room items will go here -->
+                </div>
+                
+                <div class="divider"><span>OR</span></div>
+                
+                <div class="create-room">
+                    <input type="text" id="new-room-name" placeholder="Name your new room..." autocomplete="off">
+                    <button id="create-room-btn" class="btn primary">Start New Room ✨</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Room View -->
+        <main id="room" class="view">
+            <div class="room-header">
+                <button id="leave-room-btn" class="btn secondary small">⬅️ Leave</button>
+                <h2 id="current-room-name">Room Name</h2>
+            </div>
+            
+            <div id="participants" class="participants-grid">
+                <!-- Participants will be added here -->
+            </div>
+
+            <div class="controls">
+                <button id="mute-btn" class="btn control-btn">
+                    <span class="icon">🎤</span>
+                    <span class="label">Mute</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Hidden audio element for local mic test/feedback (optional) -->
+    <audio id="local-audio" autoplay muted style="display:none;"></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
