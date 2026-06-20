@@ -491,8 +491,15 @@ async function joinRoom(roomName) {
     if (currentRoom) return;
 
     try {
-        // Request microphone access
-        originalLocalStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        // Request microphone access with disabled auto-gating/suppression to prevent voice cutouts
+        originalLocalStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                echoCancellation: false,
+                noiseSuppression: false,
+                autoGainControl: false
+            },
+            video: false
+        });
         
         // Build processed stream ready in background
         buildAudioFilter();
@@ -658,9 +665,11 @@ function triggerLocalBellAnimation(userId) {
 
 function setupAudioVisualizer(stream, participantId) {
     try {
-        const audioContextVis = new (window.AudioContext || window.webkitAudioContext)();
-        const analyzer = audioContextVis.createAnalyser();
-        const microphone = audioContextVis.createMediaStreamSource(stream);
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const analyzer = audioContext.createAnalyser();
+        const microphone = audioContext.createMediaStreamSource(stream);
         
         microphone.connect(analyzer);
         analyzer.fftSize = 256;
@@ -669,7 +678,7 @@ function setupAudioVisualizer(stream, participantId) {
 
         function checkVolume() {
             if (!document.getElementById(`participant-${participantId}`)) {
-                audioContextVis.close();
+                // Do not close shared audioContext, just stop analyzing
                 return;
             }
 
