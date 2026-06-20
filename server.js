@@ -58,6 +58,19 @@ io.on('connection', (socket) => {
         socket.to(toId).emit('ice-candidate', candidate, socket.id);
     });
 
+    // Transceiver audio state broadcasts
+    socket.on('ptt-start', (roomName) => {
+        socket.to(roomName).emit('user-ptt-start', socket.id);
+    });
+
+    socket.on('ptt-stop', (roomName) => {
+        socket.to(roomName).emit('user-ptt-stop', socket.id);
+    });
+
+    socket.on('call-ping', (roomName) => {
+        socket.to(roomName).emit('call-ping', socket.id);
+    });
+
     // Handle user disconnect
     socket.on('disconnect', () => {
         console.log(`User disconnected: ${socket.id}`);

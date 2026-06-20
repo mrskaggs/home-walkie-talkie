@@ -35,17 +35,45 @@
             <div class="room-header">
                 <button id="leave-room-btn" class="btn secondary small">⬅️ Leave</button>
                 <h2 id="current-room-name">Room Name</h2>
+                <button id="ping-btn" class="btn secondary small" title="Ring call alert to everyone">🔔 Ping</button>
+            </div>
+
+            <div class="room-settings panel">
+                <div class="setting-item">
+                    <label>🎙️ Audio Mode:</label>
+                    <select id="mode-select" class="select-btn">
+                        <option value="hands-free">Hands-Free (Always On)</option>
+                        <option value="ptt">Push-To-Talk (Hold Space/Button)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>📻 Transceiver Filter:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="filter-checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
             
             <div id="participants" class="participants-grid">
                 <!-- Participants will be added here -->
             </div>
 
-            <div class="controls">
-                <button id="mute-btn" class="btn control-btn">
-                    <span class="icon">🎤</span>
-                    <span class="label">Mute</span>
-                </button>
+            <!-- Double control schemes (Normal Hands-Free Mute or massive tactile PTT pad) -->
+            <div class="controls-area">
+                <div id="handsfree-controls" class="controls-wrap active">
+                    <button id="mute-btn" class="btn control-btn">
+                        <span class="icon">🎤</span>
+                        <span class="label">Mute</span>
+                    </button>
+                </div>
+                
+                <div id="ptt-controls" class="controls-wrap">
+                    <button id="ptt-btn" class="btn ptt-btn">
+                        <span class="ptt-icon">🎙️</span>
+                        <span class="ptt-label">HOLD TO TALK</span>
+                    </button>
+                </div>
             </div>
         </main>
     </div>
